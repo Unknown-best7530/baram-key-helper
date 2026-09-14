@@ -16,14 +16,14 @@
 
 ### 1. 전역 단축키
 
-본 프로그램은 Windows 전체에서 단축키와 입력을 감지합니다.
+본 프로그램은 Windows 전체에서 단축키와 입력을 감지함
 
 - 문서 작성, 웹 브라우징, 다른 게임 이용 중에도 단축키가 작동할 수 있음
 - 게임 외 작업 시 전체 기능을 끄거나 프로그램 종료 권장
 
 ### 2. Microsoft Edge 다운로드 안내
 
-Edge에서 `baram_key_helper.exe는 일반적으로 다운로드되지 않는 파일입니다`라는 안내가 나올 수 있습니다.
+Edge에서 `baram_key_helper.exe는 일반적으로 다운로드되지 않는 파일입니다`라는 안내가 나올 수 있음
 
 - Chrome에서 Releases 페이지를 열어 다운로드 권장
 - Edge를 계속 사용하려면 [Edge 다운로드 차단 해결 방법](https://forbes.tistory.com/1437) 참고
@@ -31,7 +31,7 @@ Edge에서 `baram_key_helper.exe는 일반적으로 다운로드되지 않는 �
 
 ### 3. Windows SmartScreen 경고
 
-개인 개발자가 배포하는 미서명 프로그램 특성상 `'Windows의 PC 보호'` 경고가 표시될 수 있습니다.
+개인 개발자가 배포하는 미서명 프로그램 특성상 `'Windows의 PC 보호'` 경고가 표시될 수 있음
 
 - `[추가 정보]` → `[실행]` 선택
 - 실행 전 Releases에 게시된 SHA-256 값 확인 권장
