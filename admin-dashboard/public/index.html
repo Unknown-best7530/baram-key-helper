@@ -5,14 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>바람 단축키 도우미 관리자</title>
   <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/login.css">
 </head>
 <body>
+  <main id="login-view" class="login-shell hidden">
+    <section class="login-card" aria-labelledby="login-heading">
+      <p class="eyebrow">BARAM KEY HELPER</p>
+      <h1 id="login-heading">관리자 로그인</h1>
+      <p class="login-description">Cloudflare에 등록한 관리자 비밀번호를 입력하세요.</p>
+      <form id="login-form" class="login-form">
+        <label for="admin-password">비밀번호</label>
+        <input id="admin-password" name="password" type="password" minlength="16" maxlength="512" autocomplete="current-password" required autofocus>
+        <p id="login-error" class="login-error hidden" role="alert"></p>
+        <button id="login-button" class="button primary" type="submit">로그인</button>
+      </form>
+    </section>
+  </main>
+
+  <div id="dashboard-view" class="hidden">
   <header class="topbar">
     <div><p class="eyebrow">BARAM KEY HELPER</p><h1>라이선스 관리자</h1></div>
     <div class="top-actions">
       <span id="last-updated" class="muted">불러오는 중...</span>
       <button id="refresh-button" class="button secondary" type="button">새로고침</button>
       <button id="create-button" class="button primary" type="button">+ 라이선스 발급</button>
+      <button id="logout-button" class="button ghost" type="button">로그아웃</button>
     </div>
   </header>
   <main>
@@ -38,6 +55,7 @@
       </table></div>
     </section>
   </main>
+  </div>
 
   <dialog id="license-dialog">
     <form id="license-form" class="dialog-form">

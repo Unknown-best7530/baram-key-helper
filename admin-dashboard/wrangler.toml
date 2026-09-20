@@ -6,5 +6,4 @@ compatibility_date = "2026-09-20"
 binding = "LICENSE_API"
 service = "baram-shortcut-helper-license-api"
 
-# ADMIN_API_KEY는 이 파일에 넣지 말고 Pages Secret으로 등록합니다.
-# ACCESS_TEAM_DOMAIN, ACCESS_AUD, ADMIN_ALLOWED_EMAILS도 Pages 변수로 등록합니다.
+# ADMIN_API_KEY와 ADMIN_LOGIN_PASSWORD는 이 파일에 넣지 말고 Pages Secret으로 등록합니다.

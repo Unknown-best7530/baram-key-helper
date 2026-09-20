@@ -10,10 +10,38 @@ function show_notice(message, type = "success") {
 }
 
 async function api(path, options = {}) {
-  const response = await fetch(`/api/${path}`, { ...options, headers: { "Content-Type": "application/json", ...(options.headers || {}) } });
+  const response = await fetch(`/api/${path}`, { ...options, credentials: "same-origin", headers: { "Content-Type": "application/json", ...(options.headers || {}) } });
   const body = await response.json().catch(() => ({ error: "invalid_server_response" }));
-  if (!response.ok || body.ok === false) throw new Error(body.message || body.error || `HTTP ${response.status}`);
+  if (!response.ok || body.ok === false) {
+    const error = new Error(body.message || body.error || `HTTP ${response.status}`);
+    error.code = body.error;
+    if (response.status === 401 && path !== "auth/login") show_login();
+    throw error;
+  }
   return body;
+}
+
+function login_message(error) {
+  const messages = {
+    invalid_admin_password: "비밀번호가 올바르지 않습니다.",
+    admin_login_not_configured: "Cloudflare에 ADMIN_LOGIN_PASSWORD Secret을 먼저 등록하세요.",
+    invalid_request_origin: "올바르지 않은 요청입니다. 관리자 페이지를 새로고침해 주세요.",
+  };
+  return messages[error.code] || "로그인하지 못했습니다. 잠시 후 다시 시도하세요.";
+}
+
+function show_login(message = "") {
+  $("#dashboard-view").classList.add("hidden");
+  $("#login-view").classList.remove("hidden");
+  $("#login-error").textContent = message;
+  $("#login-error").classList.toggle("hidden", !message);
+  $("#admin-password").focus();
+}
+
+function show_dashboard() {
+  $("#login-view").classList.add("hidden");
+  $("#dashboard-view").classList.remove("hidden");
+  $("#login-error").classList.add("hidden");
 }
 
 function text(value) { return value === null || value === undefined || value === "" ? "-" : String(value); }
@@ -147,4 +175,35 @@ $("#license-rows").addEventListener("click", (event) => {
   if (item) run_action(item, button.dataset.action);
 });
 
-load_licenses();
+$("#login-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const button = $("#login-button");
+  button.disabled = true; button.textContent = "확인 중...";
+  $("#login-error").classList.add("hidden");
+  try {
+    await api("auth/login", { method: "POST", body: JSON.stringify({ password: $("#admin-password").value }) });
+    $("#admin-password").value = "";
+    show_dashboard(); await load_licenses();
+  } catch (error) {
+    show_login(login_message(error));
+  } finally {
+    button.disabled = false; button.textContent = "로그인";
+  }
+});
+
+$("#logout-button").addEventListener("click", async () => {
+  try { await api("auth/logout", { method: "POST", body: "{}" }); } catch (_error) { /* 쿠키 만료 후 로그인 화면으로 이동 */ }
+  state.licenses = []; $("#admin-password").value = ""; show_login("로그아웃했습니다.");
+});
+
+async function initialize() {
+  try {
+    const status = await api("auth/status");
+    if (!status.authenticated) return show_login();
+    show_dashboard(); await load_licenses();
+  } catch (error) {
+    show_login(login_message(error));
+  }
+}
+
+initialize();
