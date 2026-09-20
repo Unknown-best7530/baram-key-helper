@@ -40,6 +40,7 @@ npx wrangler pages dev public --service LICENSE_API=baram-shortcut-helper-licens
 ## 배포
 
 Cloudflare 설정을 마친 뒤 이 디렉터리에서 배포합니다.
+관리자 페이지는 Cloudflare Pages 자동 배포를 사용합니다.
 
 ```bash
 npx wrangler pages deploy public --project-name baram-key-helper-admin
