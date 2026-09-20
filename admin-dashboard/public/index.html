@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>바람 단축키 도우미 관리자</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div><p class="eyebrow">BARAM KEY HELPER</p><h1>라이선스 관리자</h1></div>
+    <div class="top-actions">
+      <span id="last-updated" class="muted">불러오는 중...</span>
+      <button id="refresh-button" class="button secondary" type="button">새로고침</button>
+      <button id="create-button" class="button primary" type="button">+ 라이선스 발급</button>
+    </div>
+  </header>
+  <main>
+    <section id="notice" class="notice hidden" aria-live="polite"></section>
+    <section class="stats" aria-label="라이선스 요약">
+      <article><span>전체</span><strong id="stat-total">0</strong></article>
+      <article><span>활성</span><strong id="stat-active">0</strong></article>
+      <article><span>차단</span><strong id="stat-blocked">0</strong></article>
+      <article><span>무료 체험</span><strong id="stat-trial">0</strong></article>
+      <article><span>7일 내 만료</span><strong id="stat-expiring">0</strong></article>
+    </section>
+    <section class="panel">
+      <form id="filter-form" class="filters">
+        <label class="search-field"><span>통합 검색</span><input name="search" maxlength="100" placeholder="고객명·이메일·메모 검색"></label>
+        <label><span>상태</span><select name="status"><option value="">전체</option><option value="active">활성</option><option value="blocked">차단</option></select></label>
+        <label><span>플랜</span><select name="plan"><option value="">전체</option><option value="basic">Basic</option><option value="standard">Standard</option><option value="pro">Pro</option></select></label>
+        <label><span>기간</span><select name="is_permanent"><option value="">전체</option><option value="false">기간제</option><option value="true">영구</option></select></label>
+        <button class="button secondary" type="submit">검색</button><button id="reset-filter" class="button ghost" type="button">초기화</button>
+      </form>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ID</th><th>고객</th><th>상태</th><th>플랜</th><th>만료일</th><th>PC</th><th>이메일</th><th>메모</th><th>관리</th></tr></thead>
+        <tbody id="license-rows"><tr><td colspan="9" class="empty">라이선스를 불러오는 중입니다.</td></tr></tbody>
+      </table></div>
+    </section>
+  </main>
+
+  <dialog id="license-dialog">
+    <form id="license-form" class="dialog-form">
+      <div class="dialog-title"><div><p class="eyebrow">LICENSE</p><h2 id="dialog-heading">라이선스 발급</h2></div><button class="icon-button" value="cancel" formmethod="dialog" aria-label="닫기">×</button></div>
+      <input id="license-id" type="hidden">
+      <div class="form-grid">
+        <label><span>고객명</span><input id="customer-label" maxlength="200"></label>
+        <label><span>이메일 *</span><input id="email" type="email" required></label>
+        <label><span>플랜</span><select id="plan"><option value="basic">Basic</option><option value="standard">Standard</option><option value="pro">Pro</option></select></label>
+        <label><span>최대 PC</span><input id="max-devices" type="number" min="1" max="5" value="1" required></label>
+        <label id="days-field"><span>이용 기간(일)</span><input id="days" type="number" min="1" max="365" value="30" required></label>
+        <label class="check-label"><input id="is-permanent" type="checkbox"><span>영구 라이선스</span></label>
+        <label class="full"><span>메모</span><textarea id="note" maxlength="1000" rows="4"></textarea></label>
+      </div>
+      <div class="dialog-actions"><button class="button ghost" value="cancel" formmethod="dialog">취소</button><button id="save-license" class="button primary" type="submit">발급</button></div>
+    </form>
+  </dialog>
+  <dialog id="key-dialog"><div class="key-result">
+    <p class="eyebrow">발급 완료</p><h2>라이선스 키</h2><p>목록에서 다시 확인할 수 없습니다. 지금 복사해 안전하게 보관하세요.</p>
+    <code id="created-key"></code>
+    <div class="dialog-actions"><button id="copy-key" class="button primary" type="button">키 복사</button><button class="button secondary" value="cancel" formmethod="dialog">닫기</button></div>
+  </div></dialog>
+  <script src="/app.js" defer></script>
+</body>
+</html>
