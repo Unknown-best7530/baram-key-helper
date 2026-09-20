@@ -4,8 +4,8 @@
 
 ## 다운로드 및 실행 방법
 
-1. **[최신 baram_key_helper.exe 바로 다운로드](https://github.com/Unknown-best7530/baram-key-helper/releases/latest/download/baram_key_helper.exe)**
-2. 원하는 폴더에 보관 후 실행
+1. **[GitHub Releases에서 업데이트 내용 확인 및 최신 버전 다운로드](https://github.com/Unknown-best7530/baram-key-helper/releases/latest)**
+2. 최신 Release에 첨부된 `baram_key_helper.exe` 다운로드 후 실행
 3. Windows UAC 확인 창이 나타나면 게임에서 안정적으로 사용하기 위해 **[예]** 선택
 
 - 별도의 Python 설치 없이 실행 가능
